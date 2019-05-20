@@ -1,0 +1,30 @@
+{
+  "name": "cafesupremo",
+  "version": "1.2.1",
+  "description": "HTML5 client for CafeSupremo",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 1",
+    "prepublish": "zip -r target/cafesupremo.zip node_modules web manifest.json *.js"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "@oracle/oraclejet": "~5.2.0",
+    "path": ""
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "@oracle/grunt-oraclejet": "~5.2.0",
+    "load-grunt-config": "0.19.2",
+    "@oracle/oraclejet-tooling": "~5.2.0"
+  },
+  "engines": {
+    "node": ">=6.9.1"
+  },
+  "keywords": [
+    "atp",
+    "demo"
+  ],
+  "author": "Kenneth Heung",
+  "license": "UPL-1.0"
+}

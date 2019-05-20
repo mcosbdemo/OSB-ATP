@@ -1,0 +1,61 @@
+/*
+    Document   : override
+    Created on : Sept 10, 2018
+    Author     : Rayes Huang
+    Description:
+        This is where any of your application specific styles should be included
+*/
+
+.oj-tabs-conveyor {
+    width: 100%;
+}
+
+.oj-tabs-text-icon > .oj-tabs-nav-root .oj-tabs-tab-content, .oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-tab-content{
+    background-color: #313334;
+}
+
+.oj-tabs-title{
+    color: #c0c4c8;
+}
+
+.oj-tabs-horizontal.oj-tabs-text-icon > .oj-tabs-nav-root .oj-tabs-tab.oj-selected, .oj-tabs-horizontal.oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-tab.oj-selected{
+    border-bottom-color: #B07D4A;
+    border-bottom-width: thick;
+}
+
+.oj-tabs-panel{
+    padding: 0px;
+}
+
+.page-banner{
+    vertical-align: middle;
+    height: 6vh;
+    background-color: #313334;
+}
+
+.page-title{
+    color: #c0c4c8;
+}
+
+.page-content{
+    padding: 0px;
+}
+
+.oj-dialog-header{
+    background-color: #313334;
+    color: #c0c4c8;
+}
+
+.login-dialog{
+    width: 85%;
+}
+
+#signUpButton button , #signInButton button{
+    background: transparent;
+}
+
+.oj-label{
+    font-style: oblique;
+    font-weight: bold;
+    font-size: 16px;
+}

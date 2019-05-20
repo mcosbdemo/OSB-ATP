@@ -1,0 +1,26 @@
+<div>
+<ul id="listview" aria-label="Discover Coffee"
+       data-bind="ojComponent: {component: 'ojListView', data: products, selectionMode: 'single', item: {template: selectTemplate, focusable: itemOnly, selectable: itemOnly}, drillMode: 'none'}">
+</ul>
+
+<script type="text/html" id="group_template">
+    <li data-bind="attr: {id: id}">
+        <span data-bind="text: name"></span>
+    </li>
+</script>
+
+<script type="text/html" id="item_template">
+    <li style="padding: 0px" data-bind="attr: {id: id}">
+        <div class="oj-flex" style="flex-wrap: nowrap">
+            <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(\'img/coffee/' + img + '\')',
+                 backgroundRepeat: 'no-repeat', backgroundSize: '60px 60px', minHeight: '60px', minWidth: '60px', maxWidth: '60px' }, attr: { 'aria-label': name }">
+            </span>
+            <div style="line-height: 60px; vertical-align: middle; text-indent: 15px; font-size: 15px; font-weight: bold" class="oj-flex-item">
+                <div>
+                    <span data-bind="text: name"></span>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>
+</div>
