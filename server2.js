@@ -1,36 +1,20 @@
-// express as API services + serving H5 client
 var express = require('express');
-var app = express();
-
-var path = require('path');
-
-// using 8080 for nodejs, we can forward in k8
-var PORT = process.env.PORT || 8080;
-
-// database required initialization
-//   DB config will be replaced by ATP credentials
-//   getting from environment variables
 var dbConfig = require('./dbconfig.js');
+var bodyParser = require('body-parser');
 var oracledb = require('oracledb');
-// enable aauto commit
 oracledb.autoCommit = true;
-
+var app = express();
+// use TCP port 8080 for ACCS, 9000 for linux VM
+// can also use export PORT=9000 before npm start
+var PORT = process.env.PORT || 8080;
+//var PORT = process.env.PORT || 9000;
 // reading database connection prop from config file
-//   should re-visit, and use only environment variables
 var connectionProperties = {
   user: process.env.DB_ADMIN_USER || dbConfig.dbuser,
   password: process.env.DB_ADMIN_PWD || dbConfig.dbpassword,
   walletpass: process.env.WALLET_PWD,
   connectString: process.env.DBAAS_DEFAULT_CONNECT_DESCRIPTOR || dbConfig.connectString
 };
-
-// additional requires
-var bodyParser = require('body-parser');
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ type: '*/*' }));
-
 // common function to close / release db connection
 function doRelease(connection) {
   console.log('release db connection in doRelease function');
@@ -41,12 +25,13 @@ function doRelease(connection) {
   });
 }
 
-// serving APIs with Router
-var router = express.Router();
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ type: '*/*' }));
 
+var router = express.Router();
 // setup CORS profile
-//   can be remove if we are serving H5 with the
-//   same service
 router.use(function (request, response, next) {
   console.log("REQUEST:" + request.method + "   " + request.url);
   console.log("BODY:" + JSON.stringify(request.body));
@@ -61,7 +46,7 @@ router.use(function (request, response, next) {
  * GET /loyalty/v1/points/:userid
  * Returns the point balance
  */
-router.route('/v1/points/:userid').get(function (request, response) {
+router.route('/loyalty/v1/points/:userid').get(function (request, response) {
   console.log("GET POINT BALANCE BY ID:" + request.params.userid);
   oracledb.getConnection(connectionProperties, function (err, connection) {
       if (err) {
@@ -70,7 +55,7 @@ router.route('/v1/points/:userid').get(function (request, response) {
           return;
       }
       var id = request.params.userid;
-      connection.execute("SELECT POINTS FROM CUSTOMER WHERE ID = :id",[id],
+      connection.execute("SELECT POINTS FROM loyalty.CUSTOMER WHERE ID = :id",[id],
         { outFormat: oracledb.OBJECT },
         function (err, result) {
           if (err) {
@@ -96,7 +81,7 @@ router.route('/v1/points/:userid').get(function (request, response) {
  * POST /loyalty/v1/points/:userid
  * Credits 1 point and returns the point balance
  */
-router.route('/v1/points/:userid').post(function (request, response) {
+router.route('/loyalty/v1/points/:userid').post(function (request, response) {
   console.log("POST CREDIT 1 POINT and POINT BALANCE BY ID:" + request.params.userid);
   oracledb.getConnection(connectionProperties, function (err, connection) {
       if (err) {
@@ -105,7 +90,7 @@ router.route('/v1/points/:userid').post(function (request, response) {
           return;
       }
       var id = request.params.userid;
-      connection.execute("SELECT POINTS FROM CUSTOMER WHERE ID = :id",[id],
+      connection.execute("SELECT POINTS FROM loyalty.CUSTOMER WHERE ID = :id",[id],
         { outFormat: oracledb.OBJECT },
         function (err, result) {
           if (err) {
@@ -120,7 +105,7 @@ router.route('/v1/points/:userid').post(function (request, response) {
               var responseBody;
               if (user_points === 2) {
 		              console.log('points will be 3 after update, need to update coupons');
-                  connection.execute("UPDATE CUSTOMER SET POINTS = 0, COUPONS=COUPONS+1 WHERE ID = :id",[id],
+                  connection.execute("UPDATE loyalty.CUSTOMER SET POINTS = 0, COUPONS=COUPONS+1 WHERE ID = :id",[id],
                     { outFormat: oracledb.OBJECT },
                     function (err, result) {
                       if (err) {
@@ -136,7 +121,7 @@ router.route('/v1/points/:userid').post(function (request, response) {
                   });
               } else {
                   console.log('points is not 3 after update, update now points only');
-                  connection.execute("UPDATE CUSTOMER SET POINTS = POINTS+1 WHERE ID = :id",[id],
+                  connection.execute("UPDATE loyalty.CUSTOMER SET POINTS = POINTS+1 WHERE ID = :id",[id],
                     { outFormat: oracledb.OBJECT },
                     function (err, result) {
                       if (err) {
@@ -164,7 +149,7 @@ router.route('/v1/points/:userid').post(function (request, response) {
  * GET /loyalty/v1/coupon/:userid
  * Returns the coupon balance
  */
-router.route('/v1/coupon/:userid').get(function (request, response) {
+router.route('/loyalty/v1/coupon/:userid').get(function (request, response) {
   console.log("GET COUPON BALANCE BY ID:" + request.params.userid);
   oracledb.getConnection(connectionProperties, function (err, connection) {
       if (err) {
@@ -174,7 +159,7 @@ router.route('/v1/coupon/:userid').get(function (request, response) {
       }
       console.log("After connection");
       var id = request.params.userid;
-      connection.execute("SELECT COUPONS FROM CUSTOMER WHERE ID = :id",[id],
+      connection.execute("SELECT COUPONS FROM loyalty.CUSTOMER WHERE ID = :id",[id],
         { outFormat: oracledb.OBJECT },
         function (err, result) {
           if (err) {
@@ -200,7 +185,7 @@ router.route('/v1/coupon/:userid').get(function (request, response) {
  * POST /loyalty/v1/coupon/:userid
  * Consume 1 coupon and return coupon balance
  */
-router.route('/v1/coupon/:userid').post(function (request, response) {
+router.route('/loyalty/v1/coupon/:userid').post(function (request, response) {
   console.log("CONSUME 1 COUPON and COUPON BALANCE BY ID:" + request.params.userid);
   oracledb.getConnection(connectionProperties, function (err, connection) {
       if (err) {
@@ -209,7 +194,7 @@ router.route('/v1/coupon/:userid').post(function (request, response) {
           return;
       }
       var id = request.params.userid;
-      connection.execute("SELECT COUPONS FROM CUSTOMER WHERE ID = :id",[id],
+      connection.execute("SELECT COUPONS FROM loyalty.CUSTOMER WHERE ID = :id",[id],
         { outFormat: oracledb.OBJECT },
         function (err, result) {
           if (err) {
@@ -225,7 +210,7 @@ router.route('/v1/coupon/:userid').post(function (request, response) {
               if (user_coupons === 0) {
                   responseBody = { coupon: 0 };
               } else {
-                  connection.execute("UPDATE CUSTOMER SET COUPONS = COUPONS-1 WHERE ID = :id",[id],
+                  connection.execute("UPDATE loyalty.CUSTOMER SET COUPONS = COUPONS-1 WHERE ID = :id",[id],
                     { outFormat: oracledb.OBJECT },
                     function (err, result) {
                       if (err) {
@@ -250,9 +235,9 @@ router.route('/v1/coupon/:userid').post(function (request, response) {
 
 /**
  * POST /loyalty/v1/login
- *   utility function for end user login
+ * Returns the point balance
  */
-router.route('/v1/login').post(function (request, response) {
+router.route('/loyalty/v1/login').post(function (request, response) {
   username = request.body.username;
   password = request.body.password;
   console.log("Login module trigger with user: " + username);
@@ -265,7 +250,7 @@ router.route('/v1/login').post(function (request, response) {
     } else {
       // got DB connection, lets process user login
       // let's query user now
-      connection.execute("SELECT ID, PASSWORD FROM CUSTOMER WHERE UNAME = :username",[username],
+      connection.execute("SELECT ID, PASSWORD FROM loyalty.CUSTOMER WHERE UNAME = :username",[username],
         {outFormat: oracledb.OBJECT},
         function (err, result) {
           if (err) {
@@ -309,25 +294,21 @@ router.route('/v1/login').post(function (request, response) {
 
     };
   })
+
 });
 
 /**
- * POST /loyalty/v1/activatereward/
+ * POST /loyalty/v1/activatereward/:userid
  * Check loyalty program reward activation status
- *   reserved for future use
  */
-router.route('/v1/activatereward/').get(function (request, response) {
+router.route('/loyalty/v1/activatereward/').get(function (request, response) {
   console.log("GET REWARD ACTIVATION STATUS");
   var responseBody = { activated: "true" };
   response.json(responseBody);
 });
 
-// serving H5 client under web folder
-// this is the jet app and build with grunt
-app.use(express.static(path.join(__dirname,'web')));
-// route loyalty service API with router
-app.use('/loyalty', router);
+app.use(express.static('static'));
+app.use('/', router);
+app.listen(PORT);
 
-app.listen(PORT,function(){
-  console.log("CafeSupremo client/server started at port " + PORT);
-});
+console.log("Server started in port:" + PORT + ", using connection: " + JSON.stringify(connectionProperties));

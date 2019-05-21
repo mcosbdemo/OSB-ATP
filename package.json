@@ -13,7 +13,7 @@
     "path": "",
     "express": "^4.16.4",
     "oracledb": "^2.3.0",
-    "request": ""    
+    "request": ""
   },
   "devDependencies": {
     "grunt": "^1.0.1",

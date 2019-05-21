@@ -10,16 +10,16 @@ RUN apt-get update \
   && mkdir -p /reward \
   && mkdir -p opt/oracle
 # copy and unzip db libraries
-ADD ./oracle .
-RUN unzip instantclient-basiclite-linux.x64-12.2.0.1.0 -d /opt/oracle
+ADD ./oracle/instantclient-basiclite-linux.x64-19.3.0.0.0dbru.zip .
+RUN unzip instantclient-basiclite-linux.x64-19.3.0.0.0dbru.zip -d /opt/oracle
 
 # setup environment variables
 #   This should be replaced by k8s
 #   kubectl / docker run
 #   arguments
-ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_12_2"
-ENV TNS_ADMIN="/usr/src/app/Wallet_ATPDemoDB"
-ENV WALLET_LOCATION="/usr/src/app/Wallet_ATPDemoDB"
+ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_19_3"
+ENV TNS_ADMIN="/reward/Wallet_ATPDemoDB"
+ENV WALLET_LOCATION="/reward/Wallet_ATPDemoDB"
 
 # 2nd round of copy & run
 # this should copy the actual app and do the installation

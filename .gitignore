@@ -59,3 +59,20 @@ typings/
 
 # next.js build output
 .next
+
+# OS specific
+.DS_Store*
+Icon?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.directory
+*~
+
+# kenneth development environment
+kenneth*.sh
+
+# Oracle DB specific
+Wallet_ATPDemoDB
+oracle
