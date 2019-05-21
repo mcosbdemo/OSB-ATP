@@ -28,7 +28,7 @@ spec:
       containers:
       # User application that uses credential files to connect to ATP.
       - name: db-app
-        image: $DOCKER_REGISTRY/$DOCKER_REPO:$WERCKER_GIT_COMMIT
+        image: $DOCKER_REGISTRY/$DOCKER_REPO:$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         ports:
         - containerPort: 8080
         env:
