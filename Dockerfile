@@ -18,8 +18,8 @@ RUN unzip instantclient-basiclite-linux.x64-19.3.0.0.0dbru.zip -d /opt/oracle
 #   kubectl / docker run
 #   arguments
 ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_19_3"
-ENV TNS_ADMIN="/reward/Wallet_ATPDemoDB"
-ENV WALLET_LOCATION="/reward/Wallet_ATPDemoDB"
+ENV TNS_ADMIN="/db-demo/creds”
+ENV WALLET_LOCATION="/db-demo/creds"
 
 # 2nd round of copy & run
 # this should copy the actual app and do the installation
