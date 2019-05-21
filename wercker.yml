@@ -33,11 +33,11 @@ deploy-to-cluster:
     - bash-template
     - script:
         name: "Visualise Kubernetes config"
-        code: cat multipoints.yml
+        code: cat multipoints-deploy.yml
     - kubectl:
         name: deploy to kubernetes
         server: $KUBERNETES_MASTER
         # username: $KUBERNETES_USERNAME
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: apply -f multipoints.yml
+        command: apply -f multipoints-deploy.yml
