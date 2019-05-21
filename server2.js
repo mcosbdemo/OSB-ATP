@@ -13,7 +13,7 @@ var connectionProperties = {
   user: process.env.DB_ADMIN_USER || dbConfig.dbuser,
   password: process.env.DB_ADMIN_PWD || dbConfig.dbpassword,
   walletpass: process.env.WALLET_PWD,
-  connectString: process.env.DBAAS_DEFAULT_CONNECT_DESCRIPTOR || dbConfig.connectString
+  connectString: process.env.DB_DESCRIPTOR || dbConfig.connectString
 };
 // common function to close / release db connection
 function doRelease(connection) {
