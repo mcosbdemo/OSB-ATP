@@ -1,0 +1,43 @@
+# Start with Oracle Linux 7
+box: oraclelinux:7-slim
+
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# https://devcenter.wercker.com/development/pipelines/
+build:
+  # https://devcenter.wercker.com/development/steps/
+  steps:
+    - internal/docker-build:
+        build-args: ""
+        dockerfile: Dockerfile
+        image-name: multipoints
+
+push-release:
+  steps:
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        repository: $DOCKER_REPO
+        registry: $DOCKER_REGISTRY
+        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        ports: 8080
+        working-dir: $WERCKER_SOURCE_DIR
+        env: LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3 TNS_ADMIN=/reward/Wallet_ATPDemoDB WALLET_LOCATION=/reward/Wallet_ATPDemoDB
+        cmd: node server.js
+
+deploy-to-cluster:
+    box:
+        id: alpine
+        cmd: /bin/sh
+    steps:
+    - bash-template
+    - script:
+        name: "Visualise Kubernetes config"
+        code: cat multipoints.yml
+    - kubectl:
+        name: deploy to kubernetes
+        server: $KUBERNETES_MASTER
+        # username: $KUBERNETES_USERNAME
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: apply -f multipoints.yml

@@ -1,7 +1,7 @@
 {
-  "name": "cafesupremo",
-  "version": "1.2.1",
-  "description": "HTML5 client for CafeSupremo",
+  "name": "multipoints",
+  "version": "0.0.1",
+  "description": "client server cafesupremo with multicloud",
   "main": "server.js",
   "scripts": {
     "test": "echo \"No test specified\" && exit 1",
@@ -10,7 +10,10 @@
   "dependencies": {
     "express": "^4.15.4",
     "@oracle/oraclejet": "~5.2.0",
-    "path": ""
+    "path": "",
+    "express": "^4.16.4",
+    "oracledb": "^2.3.0",
+    "request": ""
   },
   "devDependencies": {
     "grunt": "^1.0.1",
