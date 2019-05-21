@@ -11,16 +11,13 @@ build:
         build-args: ""
         dockerfile: Dockerfile
         image-name: multipoints
-
-push-release:
-  steps:
     - internal/docker-push:
         image-name: multipoints
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
         registry: $DOCKER_REGISTRY
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        tag: latest, $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         ports: 8080
         env: LD_LIBRARY_PATH=/opt/oracle/instantclient_19_3 TNS_ADMIN=/reward/Wallet_ATPDemoDB WALLET_LOCATION=/reward/Wallet_ATPDemoDB
         cmd: node server.js
