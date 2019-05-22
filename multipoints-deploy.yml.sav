@@ -17,7 +17,7 @@ spec:
         command:
         - bash
         - -c
-        - "for i in \`ls -1 /tmp/creds | grep -v user_name\`; do cat /tmp/creds/\$i  | base64 --decode > /creds/\$i; done; ls -l /creds/*; sed -i 's~DIRECTORY=\"?/network/admin\"~DIRECTORY=\${WALLET_LOCATION}~g' /creds/sqlnet.ora;"
+        - "for i in `ls -1 /tmp/creds | grep -v user_name`; do cat /tmp/creds/$i  | base64 --decode > /creds/$i; done; ls -l /creds/*;"
         image: oraclelinux:7.4
         volumeMounts:
         - name: creds-raw
@@ -28,9 +28,9 @@ spec:
       containers:
       # User application that uses credential files to connect to ATP.
       - name: db-app
-        image: $DOCKER_REPO:$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        image: kwanwan/multipoints:deployment-41a87bcb0ea4d74ffb125706356424130b50c501
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
         # Pass DB ADMIN user name that is part of the secret created by the binding request.
         - name: DB_ADMIN_USER
@@ -52,8 +52,6 @@ spec:
             secretKeyRef:
               name: atp-user-cred
               key: walletPassword
-        - name: DB_DESCRIPTOR
-          value: $ATPADW_NAME
         volumeMounts:
         - name: creds
           mountPath: /db-demo/creds
