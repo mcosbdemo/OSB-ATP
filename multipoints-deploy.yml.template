@@ -30,7 +30,7 @@ spec:
       - name: db-app
         image: $DOCKER_REPO:$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env:
         # Pass DB ADMIN user name that is part of the secret created by the binding request.
         - name: DB_ADMIN_USER

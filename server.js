@@ -4,8 +4,8 @@ var app = express();
 
 var path = require('path');
 
-// using 8080 for nodejs, we can forward in k8
-var PORT = process.env.PORT || 8080;
+// using 80 for nodejs, we can forward in k8
+var PORT = process.env.PORT || 80;
 
 // database required initialization
 //   DB config will be replaced by ATP credentials

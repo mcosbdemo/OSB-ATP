@@ -32,5 +32,5 @@ RUN cd /reward \
   && npm install grunt-cli -g \
   && npm install \
   && grunt build:release
-EXPOSE 8080
+EXPOSE 80
 CMD ["node","server.js"]
