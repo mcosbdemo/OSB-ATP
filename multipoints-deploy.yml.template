@@ -17,7 +17,7 @@ spec:
         command:
         - bash
         - -c
-        - "for i in \`ls -1 /tmp/creds | grep -v user_name\`; do cat /tmp/creds/\$i  | base64 --decode > /creds/\$i; done; ls -l /creds/*;"
+        - "for i in \`ls -1 /tmp/creds | grep -v user_name\`; do cat /tmp/creds/\$i  | base64 --decode > /creds/\$i; done; ls -l /creds/*; sed -i \'s\;DIRECTORY=\"?/network/admin\"\;DIRECTORY=\${WALLET_LOCATION}\;g\' /creds/sqlnet.ora;"
         image: oraclelinux:7.4
         volumeMounts:
         - name: creds-raw
@@ -53,7 +53,7 @@ spec:
               name: atp-user-cred
               key: walletPassword
         - name: DB_DESCRIPTOR
-          value: $ATPADW_NAME      
+          value: $ATPADW_NAME
         volumeMounts:
         - name: creds
           mountPath: /db-demo/creds
