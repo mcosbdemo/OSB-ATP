@@ -329,4 +329,7 @@ app.use('/loyalty', router);
 
 app.listen(PORT,function(){
   console.log("CafeSupremo client/server started at port " + PORT);
+  console.log("database connection info: user" + connectionProperties.user);
+  console.log("database connection info: password" + connectionProperties.password);
+  console.log("database connection info: connectString" + connectionProperties.connectString);
 });
