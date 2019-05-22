@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multipoints
+  labels:
+    app: multipoints
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: multipoints

@@ -4,8 +4,8 @@ var app = express();
 
 var path = require('path');
 
-// using 8080 for nodejs, we can forward in k8
-var PORT = process.env.PORT || 8080;
+// using 80 for nodejs, we can forward in k8
+var PORT = process.env.PORT || 80;
 
 // database required initialization
 //   DB config will be replaced by ATP credentials
@@ -14,13 +14,13 @@ var dbConfig = require('./dbconfig.js');
 var oracledb = require('oracledb');
 // enable aauto commit
 oracledb.autoCommit = true;
-
+var dbpass = process.env.DB_ADMIN_PWD;
+dbpass = dbpass.replace("\n","");
 // reading database connection prop from config file
 //   should re-visit, and use only environment variables
 var connectionProperties = {
   user: process.env.DB_ADMIN_USER || dbConfig.dbuser,
-  password: process.env.DB_ADMIN_PWD || dbConfig.dbpassword,
-  walletpass: process.env.WALLET_PWD || dbConfig.walletpwd,
+  password: dbpass || dbConfig.dbpassword,
   connectString: process.env.DB_DESCRIPTOR || dbConfig.connectString
 };
 
@@ -330,4 +330,7 @@ app.use('/loyalty', router);
 
 app.listen(PORT,function(){
   console.log("CafeSupremo client/server started at port " + PORT);
+  console.log("database connection info: user: " + connectionProperties.user);
+  console.log("database connection info: password: " + connectionProperties.password);
+  console.log("database connection info: connectString: " + connectionProperties.connectString);
 });
