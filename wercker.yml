@@ -37,7 +37,7 @@ deploy-to-cluster:
         # username: $KUBERNETES_USERNAME
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: apply -f multipoints-deploy.yml
+        command: apply -f ./multipoints-deploy.yml
     - kubectl:
         name: apply service
         server: $KUBERNETES_MASTER
