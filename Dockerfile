@@ -9,10 +9,10 @@ ENV TNS_ADMIN="/db-demo/creds"
 ENV WALLET_LOCATION="/db-demo/creds"
 
 # install all required dependencies and create subdir
-RUN mkdir -p /reward \
+RUN mkdir -p /reward
 
 WORKDIR /reward
-COPY . /reward/
+COPY . .
 
 RUN cd /reward \
   && npm install \
