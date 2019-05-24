@@ -12,7 +12,7 @@ ENV WALLET_LOCATION="/db-demo/creds"
 RUN mkdir -p /reward \
 
 WORKDIR /reward
-COPY . .
+COPY . /reward/
 
 RUN cd /reward \
   && npm install \
