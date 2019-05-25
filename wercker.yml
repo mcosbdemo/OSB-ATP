@@ -1,11 +1,107 @@
-# Start with Oracle Linux 7
-box: oraclelinux:7-slim
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# https://devcenter.wercker.com/development/pipelines/
+box:
+  id: alpine:3.2
 build:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - kubectl:
+      name: show pods status
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: get pods -o wide
+
+create-atp-instance:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: create atp instance
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: create -f ./atp-instance-plain.yaml
+
+create-atp-binding:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: create atp binding
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: create -f ./atp-binding-plain.yaml
+  - script:
+      name: "show secret config template"
+      code: cat ./atp-demo-secret.yaml
+  - script:
+      name: "add credentials to secret config"
+      code: |
+        sed -i '/walletPassword.*/d' atp-demo-secret.yaml
+        sed -i '/password.*/d' atp-demo-secret.yaml
+        cat atp-demo-secret.yaml
+        echo "  password: $(echo -n $DB_ADMIN_PASSWORD | base64)" >> atp-demo-secret.yaml
+        echo "  walletPassword: $(echo -n $WALLET_PASSWORD | base64)" >> atp-demo-secret.yaml
+        cat atp-demo-secret.yaml
+  - kubectl:
+      name: create atp secret
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: create -f ./atp-demo-secret.yaml
+
+delete-atp-binding:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: delete atp binding
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: delete -f ./atp-binding-plain.yaml
+
+delete-atp-secret:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: delete atp secret
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: delete -f ./atp-demo-secret.yaml
+
+delete-atp-instance:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: delete atp instance
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: delete -f ./atp-instance-plain.yaml
+
+
+
+
+
+build-app:
   # https://devcenter.wercker.com/development/steps/
+  box: oraclelinux:7-slim
   steps:
     - internal/docker-build:
         build-args: ""
