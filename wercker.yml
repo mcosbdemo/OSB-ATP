@@ -106,9 +106,9 @@ build-app:
     - internal/docker-build:
         build-args: ""
         dockerfile: Dockerfile
-        image-name: multipoints
+        image-name: osbatp
     - internal/docker-push:
-        image-name: multipoints
+        image-name: osbatp
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
