@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: multipoints
+  name: osbatp
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: multipoints
+        app: osbatp
     spec:
       # The credential files in the secret are base64 encoded twice and hence they need to be decoded for the programs to use them.
       # This decode-creds initContainer takes care of decoding the files and writing them to a shared volume from which db-app container
