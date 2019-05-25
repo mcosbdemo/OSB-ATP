@@ -126,17 +126,17 @@ deploy-to-cluster:
     - bash-template
     - script:
         name: "Visualise Kubernetes config"
-        code: cat multipoints-deploy.yml
+        code: cat osbatp-deploy.yml
     - kubectl:
         name: deploy to kubernetes
         server: $KUBERNETES_MASTER
         # username: $KUBERNETES_USERNAME
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: apply -f ./multipoints-deploy.yml
+        command: apply -f ./osbatp-deploy.yml
     - kubectl:
         name: apply service
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: apply -f ./multipoints-service.yml
+        command: apply -f ./osbatp-service.yml
