@@ -8,6 +8,6 @@ metadata:
   name: $OSB_ATP_NAME-binding
 spec:
   instanceRef:
-    name: $OSB_ATP_NAME
+    name: osb-$OSB_ATP_NAME
   parameters:
     walletPassword: $WALLET_PASSWORD
