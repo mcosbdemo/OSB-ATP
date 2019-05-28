@@ -96,7 +96,6 @@ delete-atp-instance:
       command: delete -f ./atp-instance-plain.yaml
 
 build-app:
-  # https://devcenter.wercker.com/development/steps/
   box: oraclelinux:7-slim
   steps:
     - internal/docker-build:
