@@ -101,9 +101,9 @@ build-app:
     - internal/docker-build:
         build-args: ""
         dockerfile: Dockerfile
-        image-name: osbatp
+        image-name: cafesupremo
     - internal/docker-push:
-        image-name: osbatp
+        image-name: cafesupremo
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
