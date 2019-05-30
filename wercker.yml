@@ -1,6 +1,6 @@
 box:
   id: alpine:3.2
-build:
+provision-atp:
   box:
     id: alpine
     cmd: /bin/sh
