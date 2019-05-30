@@ -1,0 +1,64 @@
+[
+    {"attr": {"id": "coffee",
+              "name": "Blended Beverages"
+             },
+     "children": [
+                     {"attr": {"id": "americano",
+                               "name": "Americano",
+                               "img": "americano.png"
+                              }
+                     },
+                     {"attr": {"id": "latte",
+                               "name": "Latte Coffee",
+                               "img": "latte.png"
+                              }
+                     },
+                     {"attr": {"id": "mocha",
+                               "name": "Mocha",
+                               "img": "mocha.png"
+                              }
+                     },
+                     {"attr": {"id": "cappuccino",
+                               "name": "Cappuccino",
+                               "img": "cappuccino.png"
+                              }
+                     },
+                     {"attr": {"id": "macchiato",
+                                "name": "Macchiato",
+                                "img": "macchiato.png"
+                              }
+                     },
+                     {"attr": {"id": "espresso",
+                                "name": "Espresso",
+                                "img": "espresso.png"
+                              }
+                     }
+                 ]
+    },
+    {"attr": {"id": "bean",
+              "name": "Coffee Bean"
+             },
+     "children": [
+                     {"attr": {"id": "kenya",
+                               "name": "Kenya",
+                               "img": "kenya.png"
+                              }
+                     },
+                     {"attr": {"id": "sumatra",
+                               "name": "Sumatra",
+                               "img": "sumatra.png"
+                              }
+                     },
+                     {"attr": {"id": "italianroast",
+                               "name": "Italian Roast",
+                               "img": "italianroast.png"
+                              }
+                     },
+                     {"attr": {"id": "goldcoastblend",
+                               "name": "Gold Coast Blend",
+                               "img": "goldcoastblend.png"
+                              }
+                     }
+                 ]
+    }
+]

@@ -1,0 +1,1 @@
+define(["ojs/ojcore","knockout","jquery","appController","config/appconfig","ojs/ojknockout"],function(o,n,t,i,c){return new function(){var n=o.Router.rootInstance;this.logoutmsg="logging out",this.close=function(){n.go("welcome")},i.logg(!1),location.assign("/"),this.connected=function(){},this.disconnected=function(){},this.transitionCompleted=function(){}}});

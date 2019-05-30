@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+  Application Name: CafeSupermo
+  index.html
+  Author: kenneth.heung@oracle.com
+ -->
+
+<html lang="en-us">
+  <head>
+    <title>OSB-ATP CafeSupremo</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+    <!-- This is the main css file for the default Alta theme -->
+<!-- injector:theme -->
+<link rel="stylesheet" href="css/alta/5.2.0/web/alta.min.css" id="css" />
+<!-- endinjector -->
+
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+
+  </head>
+  <body class="oj-web-applayout-body">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li data-bind="attr:{ id : $data['id']}, css:{'oj-disabled' : $data['disabled']=='true'}">
+        <a href="#" >
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+      <!--
+         ** Oracle JET V5.2.0 web application navigation drawer pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+         ** The off-canvas section is used when the browser is resized to a smaller media
+         ** query size for a phone format and hidden until a user clicks on
+         ** the header hamburger icon.
+      -->
+      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+        <img alt="" src="./img/logo.png" style="width: 100%"/>
+        <oj-navigation-list id="nLis" data="[[navDataSource]]"
+                            edge="start"
+                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                            on-click="[[toggleDrawer]]"
+                            selection="{{router.stateId}}">
+        </oj-navigation-list>
+      </div>
+      <div id="pageContent" class="oj-web-applayout-page">
+        <!--
+           ** Oracle JET V5.2.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <header role="banner" class="oj-web-applayout-header page-banner">
+          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+            <!-- Offcanvas toggle button -->
+            <div class="oj-flex-bar-start oj-md-hide">
+              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
+                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
+              </oj-button>
+            </div>
+            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+              <h1 class="oj-web-applayout-header-title page-title" title="Application Name"><oj-bind-text value="[[title]]"></oj-bind-text></h1>
+            </div>
+          </div>
+          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
+            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
+                                data="[[navDataSource]]"
+                                edge="top"
+                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                                selection="{{router.stateId}}">
+            </oj-navigation-list>
+          </div>
+        </header>
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content page-content" config="[[moduleConfig]]">
+        </oj-module>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANaYvyfwOZ2gvY4aPYoA3w8bJt_ox9Iwc"></script>
+  </body>
+
+</html>

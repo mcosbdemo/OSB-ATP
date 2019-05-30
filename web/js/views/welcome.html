@@ -1,0 +1,49 @@
+<div style="width: 100%;    position: relative;">
+    <img alt="" src="img/welcome.png" style="width: 100%"/>
+    <div style="position: absolute;width: 47%;height: calc(100% / 4 - 18px);bottom: 16px;left: 2%;">
+    <oj-button style="    width: 100%;height: 100%;background: transparent;" id='signUpButton' on-oj-action='[[signUpMe]]' ></oj-button>
+    </div>
+    <div style="position: absolute;width: 47%;height: calc(100% / 4 - 18px);bottom: 16px;right: 2%;">
+     <oj-button style="    width: 100%;height: 100%;background: transparent;" id='signInButton' on-oj-action='[[signInMe]]' ></oj-button>
+     </div>
+</div>
+<div>
+    <oj-dialog style="display:none" id="loginDialog" title="Login" modality="modeless"
+        on-oj-animate-start='[[startAnimationListener]]' class="login-dialog">
+    <div slot="body">
+        <div id="login-form-container">
+            <oj-form-layout label-edge="start">
+                <oj-input-text id="usernameInput" value="{{username}}" label-hint="Username"></oj-input-text>
+                <oj-input-password id="passwordInput" value="{{password}}" label-hint="Password"></oj-input-text>
+            </oj-form-layout>
+            <div style="width: 100%; text-align: end">
+                <oj-button id="okButton" data-bind="click: login">Submit</oj-button>
+            </div>
+        </div>
+    </div>
+    </oj-dialog>
+</div>
+<div>
+    <table style="width: 100%">
+        <tr>
+            <td style="color: #9A885F; text-indent: 20px; width: 80%; vertical-align: middle;">
+                <p>I DON"T HAVE A CARD YET</p>
+            </td>
+            <td style="text-align: end; width: 20%; padding-right: 10px;">
+                >
+            </td>
+        </tr>
+        <tr>
+            <td style="color: #9A885F; text-indent: 20px; width: 80%; vertical-align: middle;">
+                <p>EASILY BUY A CAFE SUPREMO COFFEE</p>
+            </td>
+            <td style="width: 20%; padding-right: 10px;">
+                <img alt="" src="img/rewards-center.png" style="width: 40px; text-align: center"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="width: 100%">
+    <img alt="" src="img/coffees.png" style="width: 100%"/>
+</div>
+

@@ -76,3 +76,5 @@ kenneth*.sh
 # Oracle DB specific
 Wallet_ATPDemoDB
 oracle/*.zip
+# special optimization
+src/

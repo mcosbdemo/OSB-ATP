@@ -1,0 +1,1 @@
+define(["ojs/ojcore","knockout","jquery"],function(n,t,e){return new function(){this.handleActivated=function(n){},this.handleAttached=function(n){},this.handleBindingsApplied=function(n){},this.handleDetached=function(n){}}});

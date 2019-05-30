@@ -15,7 +15,7 @@ WORKDIR /reward
 COPY . .
 
 RUN cd /reward \
-  && npm install \
-  && grunt build:release
+  && npm install
+#  && grunt build:release
 EXPOSE 80
 CMD ["node","server.js"]

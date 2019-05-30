@@ -1,0 +1,1 @@
+define(["knockout","jquery","module","utils/json!../config/config.json"],function(n,o,i,t){"use strict";return new function(){var n=this;n.config=t,n.getConfigurations=function(){return n.config},n.get=function(o){return n.config[o]},n.set=function(o,i){n.config[o]=i}}});

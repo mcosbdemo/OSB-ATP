@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "Cafe Supremo - Lee Garden One",
+        "img": "store1.jpg",
+        "lat": 22.2797636,
+        "lng": 114.1834475
+    },
+    {
+        "id": 2,
+        "name": "Cafe Supremo - Causeway Bay",
+        "img": "store2.jpg",
+        "lat": 22.2794423,
+        "lng": 114.182937
+    },
+    {
+        "id": 3,
+        "name": "Cafe Supremo - Dream House",
+        "img": "store3.jpg",
+        "lat": 22.28037511,
+        "lng": 114.185295
+    },
+    {
+        "id": 4,
+        "name": "Cafe Supremo - Oracle Center",
+        "img": "store4.jpg",
+        "lat": 22.2799102,
+        "lng": 114.1841145
+    },
+    {
+        "id": 5,
+        "name": "Cafe Supremo - Hongkong Center",
+        "img": "store5.jpg",
+        "lat": 22.280582,
+        "lng": 114.1821902
+    },
+    {
+        "id": 6,
+        "name": "Cafe Supremo - OracleJet",
+        "img": "store6.jpg",
+        "lat": 22.2805063,
+        "lng": 114.1822464
+    }
+]
