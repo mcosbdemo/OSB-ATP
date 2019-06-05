@@ -5,7 +5,7 @@
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
-  name: $OSB_ATP_NAME
+  name: osb-$OSB_ATP_NAME
 spec:
   clusterServiceClassExternalName: atp-service
   clusterServicePlanExternalName: $SERVICE_PLAN
