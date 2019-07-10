@@ -1,0 +1,16 @@
+#
+# Copyright (c) 2019, Oracle and/or its affiliates. All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: osb-$OSB_ATP_NAME
+spec:
+  clusterServiceClassExternalName: atp-service
+  clusterServicePlanExternalName: standard
+  parameters:
+    name: osb-atp-existing-instance
+    ocid: $EXISTING_ATP_OCID
+    compartmentId: $$COMPARTMENT_ID
+    provisioning: false
