@@ -119,7 +119,7 @@ delete-existing-atp-instance:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
-      command: create -f ./atp-existing-instance.yaml
+      command: delete -f ./atp-existing-instance.yaml
 
 build-app:
   box: oraclelinux:7-slim
