@@ -102,11 +102,24 @@ delete-atp-instance:
   steps:
   - bash-template
   - kubectl:
-      name: delete atp instance
+      name: delete atp instance binding and OCI instance
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
       command: delete -f ./atp-instance-plain.yaml
+
+delete-existing-atp-instance:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+  - bash-template
+  - kubectl:
+      name: delete an existiing atp binding in osb only
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: create -f ./atp-existing-instance.yaml
 
 build-app:
   box: oraclelinux:7-slim
