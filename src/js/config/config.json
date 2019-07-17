@@ -4,6 +4,6 @@
     "couponEndpoint": "/loyalty/v1/coupon",
     "loginEndpoint": "/loyalty/v1/login",
     "loginEnabled": true,
-    "rewardsEnabled": true,
+    "rewardsEnabled": false,
     "defaultUser": "30004"
 }
