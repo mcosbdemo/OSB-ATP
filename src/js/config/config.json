@@ -3,7 +3,7 @@
 	"pointsEndpoint": "/loyalty/v1/points",
     "couponEndpoint": "/loyalty/v1/coupon",
     "loginEndpoint": "/loyalty/v1/login",
-    "loginEnabled": true,
+    "loginEnabled": true, 
     "rewardsEnabled": true,
     "defaultUser": "30004"
 }
