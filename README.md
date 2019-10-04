@@ -118,7 +118,7 @@ There are two steps to installing and configuring the Service Broker:
 
   - `https://github.com/oracle/oci-service-broker/releases/download/v1.3.0/oci-service-broker-1.3.0.tgz`
 
-#### **STEP 7**: Collect OCI Credentials and Register RBAC Permissions
+#### **STEP 7**: Register RBAC Permissions and Register OCI Service Broker
 
 - Collect the OCI credentials required by Service Broker to provision and manage services/resources in your user tenancy.
 
