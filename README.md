@@ -126,9 +126,13 @@ There are two steps to installing and configuring the Service Broker:
 
 - Under the **Quick Setup** run the Helm commands with the OCI credentials you collected previously to install OCI Service Broker chart.
 
-- Skip the next sections on **Recommended Setup** and **RBAC**
+- Skip the next sections on **Recommended Setup**
 
-- Now Register OCI Service Broker
+- Continue to **RBAC** section and follow the instruction to create **RBAC Permissions for registering OCI Service Broker**. Enter the following command and replace `<USER_ID>` with yours.
+
+  - `kubectl create clusterrolebinding cluster-admin-brokers --clusterrole=cluster-admin --user=<USER_ID>`
+
+- Now **Register OCI Service Broker**
 
 - You may have to replace the namespace in `oci-service-broker/samples/oci-service-broker.yaml` with default. `default` is the default namespace where your OCI Service Broker is deployed.
 
