@@ -28,22 +28,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojtabs', 'ojs
         // });
         // kenneth: map definition
         var map = L.map(document.getElementById('googleMap')).setView([22.2797636,114.1834475],18);
-        // $.getJSON("data/stores.json",
-        //        function (data)
-        //        {
+        $.getJSON("data/stores.json",
+                function (data)
+                {
                     //var label = 'Cafe Supremo';
-        //            console.log("Loaded data: " + data);
-        //            self.stores(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
-        //            var markers = data.map(function (location, i) {
-        //                return new google.maps.Marker({
-        //                    position: location,
-        //                    label: "Cafe Supremo"
-        //                });
-        //            });
-        //            var markerCluster = new MarkerClusterer(map, markers,
-        //                    {imagePath: 'img/cup-of-coffee-icon'});
+                    console.log("Loaded data: " + data);
+                    self.stores(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
+                    var markers = data.map(function (location, i) {
+                        return new L.Marker({
+                            position: location,
+                            label: "Cafe Supremo"
+                        });
+                    });
+                    var markerCluster = new MarkerClusterer(map, markers,
+                            {imagePath: 'img/cup-of-coffee-icon'});
 
-        //        })
+                })
         // kenneth - this section define the 6 stores
         var markerA = L.marker([22.2797636,114.1834475]).addTo(map);
         var markerB = L.marker([22.2794423,114.182937]).addTo(map);
