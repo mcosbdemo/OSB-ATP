@@ -81,6 +81,14 @@ At a high level you will be performing the following tasks:
 
 - Follow the instruction to -> [Download Kubeconfig](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm)
 
+- Or click on the **Access Kubeconfig** button on the cluster page. Copy and paste the command to download the kubeconfig file.
+
+  `oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.aaaaaaaaafstentggvsdenzrmyztkmrvga2dszlfmq3tayjwgc3dcobtmmyt --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0`
+
+  You may to to replace the token-version from 2.0.0 to 1.0.0 as below
+
+  `oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.aaaaaaaaafstentggvsdenzrmyztkmrvga2dszlfmq3tayjwgc3dcobtmmyt --file $HOME/.kube/config --region us-phoenix-1 --token-version 1.0.0 `
+
 - Once downloaded your Kubeconfig file, you will need to set your `KUBECONFIG` environment variable to point to the location of your Kubeconfig file.
 
 
@@ -118,19 +126,47 @@ There are two steps to installing and configuring the Service Broker:
 
   - `https://github.com/oracle/oci-service-broker/releases/download/v1.3.0/oci-service-broker-1.3.0.tgz`
 
-#### **STEP 7**: Register RBAC Permissions and Register OCI Service Broker
 
-- Collect the OCI credentials required by Service Broker to provision and manage services/resources in your user tenancy.
+- Collect your user OCI credentials required by Service Broker to provision and manage services/resources in your user tenancy.
+
+- Create OCI secret by name `ocicredentials` (Replace values with your user credentials)
+
+  `kubectl create secret generic ocicredentials \
+    --from-literal=tenancy=<CUSTOMER_TENANCY_OCID> \
+    --from-literal=user=<USER_OCID> \
+    --from-literal=fingerprint=<USER_PUBLIC_API_KEY_FINGERPRINT> \
+    --from-literal=region=<USER_OCI_REGION> \
+    --from-literal=passphrase=<PASSPHRASE_STRING> \
+    --from-file=privatekey=<PATH_OF_USER_PRIVATE_API_KEY>`
+
+
+#### **STEP 7**: Register RBAC Permissions and Register OCI Service Broker
 
 - Follow the **Quick Setup** instruction for quickly testing out OCI Service Broker.
 
 - Under the **Quick Setup** run the Helm commands with the OCI credentials you collected previously to install OCI Service Broker chart.
 
+  `helm install https://github.com/oracle/oci-service-broker/releases/download/v1.3.1/oci-service-broker-1.3.1.tgz  --name oci-service-broker \
+    --set ociCredentials.secretName=ocicredentials \
+    --set storage.etcd.useEmbedded=true \
+    --set tls.enabled=false`
+
+
+- Using Helm install from the charts directory in master branch. Please use below command.
+
+  `helm install charts/oci-service-broker/.  --name oci-service-broker \
+    --set ociCredentials.secretName=ocicredentials \
+    --set storage.etcd.useEmbedded=true \
+    --set tls.enabled=false`
+
+
 - Skip the next sections on **Recommended Setup**
+
 
 - Continue to **RBAC** section and follow the instruction to create **RBAC Permissions for registering OCI Service Broker**. Enter the following command and replace `<USER_ID>` with yours.
 
   - `kubectl create clusterrolebinding cluster-admin-brokers --clusterrole=cluster-admin --user=<USER_ID>`
+
 
 - Now **Register OCI Service Broker**
 
@@ -138,7 +174,9 @@ There are two steps to installing and configuring the Service Broker:
 
 - Once you have registered you Service Broker, you can check the service list and plans available through this broker.
 
-- You have completed the installation of the Service Broker and can skip the **Monitoring OCI Service Broker** section.
+- You have completed the installation of the Service Broker.
+
+- Skip the **Monitoring OCI Service Broker** section.
 
 
 
