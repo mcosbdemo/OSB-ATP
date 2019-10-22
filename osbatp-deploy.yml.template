@@ -36,7 +36,7 @@ spec:
         - name: DB_ADMIN_USER
           valueFrom:
             secretKeyRef:
-              name: atp-demo-binding
+              name: $OSB_ATP_NAME-binding
               key: user_name
         # Pass DB ADMIN password. The password is managed by the user and hence not part of the secret created by the binding request.
         # In this example we read the password form secret atp-user-cred that is required to be created by the user.
@@ -61,7 +61,7 @@ spec:
       # Volume for mouting the credentials file from Secret created by binding request.
       - name: creds-raw
         secret:
-          secretName: atp-demo-binding
+          secretName: $OSB_ATP_NAME-binding
       # Shared Volume in which initContainer will save the decoded credential files and the db-app container reads.
       - name: creds
         emptyDir: {}
