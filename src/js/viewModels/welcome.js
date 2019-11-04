@@ -55,7 +55,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'config/appconfig',
                       }
                     }
                     else{
-                        self.loginComplete();
+                        alert("Login unavailable! This feature is coming soon.");
                     }
                 }
 
