@@ -16,7 +16,7 @@
     "request": ""
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "=1.0.1",
     "@oracle/grunt-oraclejet": "~5.2.0",
     "load-grunt-config": "0.19.2",
     "@oracle/oraclejet-tooling": "~5.2.0"
